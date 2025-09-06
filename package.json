@@ -1,5 +1,5 @@
 {
-  "name": "@metronom72/use-base64",
+  "name": "use-base64",
   "version": "0.1.0",
   "type": "module",
   "description": "React hook + helpers to encode strings to Base64 (RFC 4648) in any JS runtime.",
@@ -67,5 +67,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "use-base64": "file:use-base64-0.1.0.tgz"
   }
 }

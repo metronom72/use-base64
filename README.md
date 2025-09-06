@@ -1,5 +1,8 @@
 # use-base64
 
+[![npm version](https://badge.fury.io/js/use-base64.svg)](https://badge.fury.io/js/use-base64)
+[![npm downloads](https://img.shields.io/npm/dm/use-base64.svg)](https://www.npmjs.com/package/use-base64)
+
 React hook and helpers to encode strings to Base64 (RFC 4648), browser/Node/SSR-safe.
 
 ## Features
