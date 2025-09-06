@@ -67,8 +67,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "use-base64": "file:use-base64-0.1.0.tgz"
   }
 }
