@@ -1,0 +1,71 @@
+{
+  "name": "@metronom72/use-base64",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "React hook + helpers to encode strings to Base64 (RFC 4648) in any JS runtime.",
+  "keywords": [
+    "base64",
+    "react",
+    "hook",
+    "rfc4648",
+    "url-safe",
+    "encoding"
+  ],
+  "license": "MIT",
+  "author": "Mikhail Dorokhovich",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/metronom72/use-base64.git"
+  },
+  "homepage": "https://github.com/metronom72/use-base64#readme",
+  "bugs": {
+    "url": "https://github.com/metronom72/use-base64/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc -p tsconfig.types.json",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=16.8"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^4.2.3",
+    "vitest": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
