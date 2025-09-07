@@ -1,16 +1,6 @@
 import { utf8Encode } from "./env"
 import { wrapAt } from "./wrap"
-
-export type Options = {
-  /** Base64 variant: standard (+/) or URL-safe (-_) */
-  variant?: "standard" | "url"
-  /** Padding behavior: preserve or strip trailing = */
-  padding?: "preserve" | "strip"
-  /** Line wrapping: false for no wrap, number for wrap width */
-  wrap?: false | number
-  /** Unicode normalization form */
-  normalize?: "NFC" | "NFD" | "NFKC" | "NFKD"
-}
+import { Base64Options } from './types';
 
 const B64_STD = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 const B64_URL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
@@ -18,7 +8,7 @@ const B64_URL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-
 /**
  * Encodes a byte array to Base64 string
  */
-export function encodeBase64FromBytes(bytes: Uint8Array, options?: Options): string {
+export function encodeBase64FromBytes(bytes: Uint8Array, options?: Base64Options): string {
   const table = (options?.variant === "url") ? B64_URL : B64_STD
   let output = ""
   const len = bytes.length
@@ -72,7 +62,7 @@ function encodeChunk(bytes: Uint8Array, start: number, end: number, table: strin
 /**
  * Encodes a string to Base64
  */
-export function encodeBase64(input: string, options?: Options): string {
+export function encodeBase64(input: string, options?: Base64Options): string {
   const bytes = utf8Encode(input, options?.normalize)
   return encodeBase64FromBytes(bytes, options)
 }
