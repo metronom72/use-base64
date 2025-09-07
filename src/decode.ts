@@ -1,5 +1,5 @@
 import { utf8Decode } from "./env"
-import { DecodeOptions } from "./types.ts"
+import { DecodeOptions } from "./types"
 
 /** Standard Base64 alphabet (RFC 4648, section 4) */
 const B64_STD_ALPH = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
