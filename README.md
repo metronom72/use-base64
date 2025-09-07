@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/use-base64.svg)](https://badge.fury.io/js/use-base64)
 [![npm downloads](https://img.shields.io/npm/dm/use-base64.svg)](https://www.npmjs.com/package/use-base64)
+[![Playground](https://img.shields.io/badge/Playground-tooling.ninja-informational)](https://www.tooling.ninja/en/base64/javascript)
 
 React hooks and helpers for Base64 (RFC 4648).  
 Universal: works in browsers, Node.js, and SSR environments.
@@ -18,6 +19,13 @@ Universal: works in browsers, Node.js, and SSR environments.
 - **Lightweight & tree-shakable**
 - **Flexible**: Configurable padding, line wrapping, Unicode normalization
 - **Memoized**: Hooks are optimized to avoid unnecessary recomputations
+
+---
+
+## Playground
+
+Поиграться и быстро проверить поведение можно здесь:  
+👉 [Base64 Playground — tooling.ninja](https://www.tooling.ninja/en/base64/javascript)
 
 ---
 
