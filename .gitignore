@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Тарболы npm pack. В индексе лежал use-base64-0.1.2.tgz -- сборка версии,
+# которой в package.json уже не было (там 0.1.5), то есть артефакт, выглядящий
+# как текущий пакет и им не являющийся. dist игнорировался, а это нет.
+*.tgz
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
