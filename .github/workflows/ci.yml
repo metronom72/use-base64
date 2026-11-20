@@ -30,6 +30,19 @@ concurrency:
 permissions:
   contents: read
 
+# Действия закреплены по SHA, а не по тегу.
+#
+# `actions/checkout@v7` -- подвижная ссылка: владелец репозитория (или тот,
+# кто получил к нему доступ) может перевести тег на другой коммит, и этот
+# коммит выполнится здесь с токеном репозитория и доступом к его секретам.
+# Так уже случалось в экосистеме -- tj-actions/changed-files в марте 2025:
+# все теги разом переставили на коммит, вычитывавший память раннера и
+# печатавший секреты в лог. SHA такой подмены не допускает: он адресует
+# содержимое.
+#
+# Цена -- обновлять руками; версия рядом в комментарии, чтобы было видно, что
+# именно закреплено.
+
 jobs:
   test:
     name: тесты (React ${{ matrix.react }})
@@ -41,9 +54,9 @@ jobs:
       matrix:
         react: ["18", "19"]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           # 24, а не 20, и это не "взять посвежее": на 20 прогон падал ещё до
           # первого теста. jsdom@31 тянет undici@8, а тот на загрузке делает
@@ -80,9 +93,9 @@ jobs:
     name: сборка
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           # Та же версия, что в тестах: расхождение между работами означало бы,
           # что dist собирается не тем Node, которым проверяется.
