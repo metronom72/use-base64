@@ -45,7 +45,7 @@ describe("Image utilities", () => {
     })
 
     Object.defineProperty(globalThis, 'Image', {
-      value: vi.fn(() => mockImage),
+      value: vi.fn(function () { return mockImage }),
       configurable: true
     })
 
@@ -169,7 +169,7 @@ describe("Image utilities", () => {
       }
 
       // Mock the FileReader constructor
-      const FileReaderMock = vi.fn(() => mockFileReader)
+      const FileReaderMock = vi.fn(function () { return mockFileReader })
       Object.defineProperty(globalThis, 'FileReader', {
         value: FileReaderMock,
         configurable: true
@@ -199,7 +199,7 @@ describe("Image utilities", () => {
       }
 
       Object.defineProperty(globalThis, 'FileReader', {
-        value: vi.fn(() => mockFileReader),
+        value: vi.fn(function () { return mockFileReader }),
         configurable: true
       })
 
@@ -225,7 +225,7 @@ describe("Image utilities", () => {
       }
 
       Object.defineProperty(globalThis, 'FileReader', {
-        value: vi.fn(() => mockFileReader),
+        value: vi.fn(function () { return mockFileReader }),
         configurable: true
       })
 
@@ -307,7 +307,7 @@ describe("Image utilities", () => {
       }
 
       Object.defineProperty(globalThis, 'FileReader', {
-        value: vi.fn(() => mockFileReader),
+        value: vi.fn(function () { return mockFileReader }),
         configurable: true
       })
 
