@@ -15,10 +15,16 @@ export function useBase64Decode(
   const safeInput = input ?? ""
 
   // Dependency array with all option values to ensure proper memoization
-  const deps: [string, DecodeOptions["output"]?, DecodeOptions["normalize"]?] = [
+  const deps: [
+    string,
+    DecodeOptions["output"]?,
+    DecodeOptions["normalize"]?,
+    DecodeOptions["loose"]?
+  ] = [
     safeInput,
     options?.output,
-    options?.normalize
+    options?.normalize,
+    options?.loose
   ]
 
   return useMemo(() => {
@@ -64,10 +70,16 @@ export function useBase64DecodeSafe(
 } {
   const safeInput = input ?? ""
 
-  const deps: [string, DecodeOptions["output"]?, DecodeOptions["normalize"]?] = [
+  const deps: [
+    string,
+    DecodeOptions["output"]?,
+    DecodeOptions["normalize"]?,
+    DecodeOptions["loose"]?
+  ] = [
     safeInput,
     options?.output,
-    options?.normalize
+    options?.normalize,
+    options?.loose
   ]
 
   return useMemo(() => {
