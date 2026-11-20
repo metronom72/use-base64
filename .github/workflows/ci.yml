@@ -41,13 +41,23 @@ jobs:
       matrix:
         react: ["18", "19"]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          # engines в package.json требует >=18; берём LTS, на котором пакет и
-          # собирается у большинства потребителей.
-          node-version: "20"
+          # 24, а не 20, и это не "взять посвежее": на 20 прогон падал ещё до
+          # первого теста. jsdom@31 тянет undici@8, а тот на загрузке делает
+          # `createZstdDecompress.bind(...)` в таблице кодировок. zstd появился
+          # в zlib только в Node 22.15, на 20 эта функция undefined -- отсюда
+          # "Cannot read properties of undefined (reading 'bind')" и семь
+          # воркеров, не стартовавших ни на одном файле.
+          #
+          # engines остаётся `>=18`: это обещание ПОТРЕБИТЕЛЯМ пакета, и оно
+          # честное -- undici и jsdom здесь только devDependencies, в dist их
+          # нет. Нижнюю границу peer/engines матрица и так не проверяет
+          # (оговорка выше), и Node тут выбирается под тестовое окружение, а не
+          # под рантайм библиотеки.
+          node-version: "24"
           cache: npm
 
       # ci, а не install: лок-файл должен соблюдаться, иначе прогон проверяет
@@ -70,11 +80,13 @@ jobs:
     name: сборка
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          # Та же версия, что в тестах: расхождение между работами означало бы,
+          # что dist собирается не тем Node, которым проверяется.
+          node-version: "24"
           cache: npm
 
       - run: npm ci
