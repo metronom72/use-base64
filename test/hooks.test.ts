@@ -8,30 +8,6 @@ import {
   useBase64DecodeSafe,
 } from "../src/index"
 
-/**
- * Тесты самих хуков.
- *
- * До этого файла хуки не проверялись вовсе, и hook.test.ts говорил об этом
- * прямо: "Since testing React hooks in isolation is complex, we'll test the
- * underlying logic that the hook uses". То есть 72 теста покрывали чистые
- * encode/decode под хуками, а хуки -- то, ради чего пакет и существует ("React
- * hook + helpers" в его описании), -- не вызывались ни разу.
- *
- * Отсюда же следовало, что матрица CI по версиям React ничего не охраняла: ни
- * один тест не касался React. Теперь касается.
- *
- * Главное здесь -- не "возвращает правильную строку" (это и так покрыто
- * снизу), а ПЕРЕСЧЁТ: хуки держат useMemo с массивом зависимостей, собранным
- * руками из полей options, и пропущенное поле не ломает ни типы, ни сборку --
- * оно тихо возвращает залипший результат при изменившихся входных данных.
- * Ровно это и нашлось: `loose` в массиве не было.
- */
-
-// Строка, на которой строгий и нестрогий разбор РАСХОДЯТСЯ: "hello" без
-// паддинга и с установленными отбрасываемыми битами. decodeBase64 бросает на
-// ней "non-canonical" в строгом режиме и возвращает "hello" при loose: true.
-// Любая каноничная строка здесь бесполезна -- на ней оба режима совпадают, и
-// тест прошёл бы при любой ошибке в зависимостях.
 const NON_CANONICAL = "aGVsbG9"
 
 describe("useBase64", () => {
@@ -107,10 +83,6 @@ describe("useBase64Decode", () => {
   })
 
   it("пересчитывает при смене loose", () => {
-    // Регрессия: `loose` не входил в массив зависимостей useMemo, хотя
-    // decodeBase64 на него смотрит. Хук возвращал результат, посчитанный для
-    // прежнего значения loose, и расхождение было видно только тому, кто
-    // переключал режим на одном и том же входе.
     const {result, rerender} = renderHook(
       ({loose}: {loose: boolean}) => useBase64Decode(NON_CANONICAL, {loose}),
       {initialProps: {loose: true}},
@@ -118,7 +90,6 @@ describe("useBase64Decode", () => {
     expect(result.current).toBe("hello")
 
     rerender({loose: false})
-    // Строгий режим бросает, хук гасит исключение и отдаёт пустую строку.
     expect(result.current).toBe("")
 
     rerender({loose: true})
@@ -171,8 +142,6 @@ describe("useBase64DecodeSafe", () => {
   })
 
   it("пересчитывает при смене loose", () => {
-    // Та же регрессия, что в useBase64Decode: массив зависимостей здесь был
-    // собран так же и так же терял `loose`.
     const {result, rerender} = renderHook(
       ({loose}: {loose: boolean}) =>
         useBase64DecodeSafe(NON_CANONICAL, {loose}),
